@@ -1,5 +1,11 @@
-<nav style="background-color: #333; padding: 1rem; color: white;">
-  <a routerLink="/list" style="color: white; font-weight: bold; text-decoration: none;">📚 Book Management System</a>
-</nav>
+<header class="app-header">
+  <div class="brand">Book Manager</div>
+  <nav class="nav-actions">
+    <a routerLink="/list" routerLinkActive="active" class="btn btn-light">Books List</a>
+    <a routerLink="/add" routerLinkActive="active" class="btn btn-primary">+ Add Book</a>
+  </nav>
+</header>
 
-<router-outlet></router-outlet>
+<main class="app-container">
+  <router-outlet></router-outlet>
+</main>

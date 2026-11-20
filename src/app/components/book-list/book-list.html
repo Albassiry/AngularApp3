@@ -1,0 +1,56 @@
+<div class="page-head">
+  <h2>Books Directory</h2>
+  <a routerLink="/add" class="btn btn-primary">+ Add New Book</a>
+</div>
+
+<p *ngIf="loading" class="status-msg">Loading books...</p>
+<p *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</p>
+
+<div class="table-card" *ngIf="!loading">
+  <table class="books-table">
+    <thead>
+      <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <td>
+          <img
+            [src]="bookService.getCoverUrl(book.cover_image)"
+            [alt]="book.title"
+            class="cover-thumb"
+            (error)="onImgError($event)"
+          />
+        </td>
+        <td class="book-title">{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td class="book-desc">{{ book.description }}</td>
+        <td class="actions-cell">
+          <a [routerLink]="['/update', book.id]" class="btn btn-edit">Update</a>
+          <a [routerLink]="['/delete', book.id]" class="btn btn-delete">Delete</a>
+        </td>
+      </tr>
+
+      <tr *ngIf="books.length === 0">
+        <td>
+          <img
+            [src]="bookService.getCoverUrl('placeholder_100.jpg')"
+            alt="Placeholder cover"
+            class="cover-thumb"
+          />
+        </td>
+        <td colspan="3" class="empty-row">
+          No books in database yet — use <strong>+ Add New Book</strong> to create your first entry.
+        </td>
+        <td>
+          <a routerLink="/add" class="btn btn-primary">Add Book</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
